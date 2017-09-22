@@ -1,0 +1,17 @@
+reset=$(tput sgr0)
+red=$(tput setaf 1)
+blue=$(tput setaf 4)
+bkred=$(tput setab 1)
+bkblue=$(tput setab 4)
+prbold=$(tput bold)
+
+PS1=""
+
+if [ "$TERM" != "linux" ] ; then
+    # PS1+="\[\033]0;\w\007\]"
+    PROMPT_COMMAND='echo -ne "\033]0;${PWD/$HOME/~}\007"'
+fi
+
+PS1+='$(LOUT=$?; if test $LOUT -ne 0; then echo " \[$red\]$LOUT"; fi) ' #Errors
+PS1+='\[$reset\]\[$prbold\]\[$red\]\u\[$reset\] ' #User
+PS1+='\[$blue\]\W \[$prbold\]\[$red\]\$\[$reset\] ' # Directory
